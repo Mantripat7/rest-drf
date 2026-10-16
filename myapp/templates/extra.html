@@ -3,3 +3,53 @@
  
    <h1>Welcome, {{ username }}</h1>
  
+<div class="container mt-5 d-flex gap-2">
+
+   {% for course in courses %}
+   <div class="card col-3">
+   <img src="{{ course.img.url }}" class="img-responsive" alt="..." style="width:240px; height:200px" >
+      <div class="card-body">
+         <h5 class="card-title">{{ course.name }}</h5>
+         <p class="card-text">{{ course.desc }}</p>
+         <a href="#" class="btn btn-primary">{{ course.price }}</a>
+      </div>
+   </div>
+   {% endfor %}
+
+
+
+</div>
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center mt-4">
+   <!-- {% if courses.has_previous %}
+    <li class="page-item ">
+      <a class="page-link" href="?page={{ courses.previous_page_number }}">Previous</a>
+    </li>
+    {% endif %} -->
+
+
+
+
+   {% for n in courses.paginator.page_range %}
+
+
+
+   {% if n == 1 or n == courses.paginator.num_pages or n >= courses.number|add:"-2" and n <= courses.number|add:"2" %} 
+    <li class="page-item"><a class="page-link {% if courses.number == n  %}active  {% endif %}" href="?page={{ n }}">{{ n }}</a></li>
+   {% elif n == courses.number|add:"-3" or n == courses.number|add:"3" %}
+      <li class="page-item"><a class="page-link disabled ">....</a></li>
+   {% endif %}
+
+
+   {% endfor %}
+
+
+
+
+    <!-- {% if courses.has_next %}
+    <li class="page-item">
+      <a class="page-link" href="?page={{ courses.next_page_number }}">Next</a>
+    </li>
+    {% endif %} -->
+  </ul>
+</nav>

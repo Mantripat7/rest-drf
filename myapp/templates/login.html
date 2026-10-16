@@ -14,10 +14,38 @@
     <input type="password" class="form-control" name="password">
   </div>
   
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary" >Submit</button>
 </form> 
+<p class="mt-2">
+  Dont remember your password ? <a  href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">Click here </a>
+</p>
+
+
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Change Password</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="post" action="{% url 'reset_password' %}">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Enter your registered email :</label>
+            <input type="email" class="form-control" name="email">
+          </div>
+       
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="submit" class="btn btn-primary">Send new password</button>
+      </div>
+       </form>
+    </div>
+  </div>
 </div>
-
-
 
 {% endblock %}
