@@ -21,8 +21,8 @@
         <input type="number" class="form-control" name="marks"  value="{{ profile.matriculation_marks }}" required>
       </div>
       <div class="col-md-6">
-        <label for="inputPassword4" class="form-label">DOB</label>
-    
+        <label for="inputPassword4" class="form-label">DOB -- {{ profile.dob|timeuntil }}</label>
+  
 <input type="date" class="form-control" name="dob" value="{{ profile.dob|date:'Y-m-d' }}" required>
 
       </div>

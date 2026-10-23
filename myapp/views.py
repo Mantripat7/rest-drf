@@ -20,16 +20,23 @@ def home(request):
     except:
         username = "Guest"
         user = None
-
-    courses = Course.objects.all()
-    paginator = Paginator([n for n in range(50)], 2)
+    if request.GET.get("keyword"):
+        key =  request.GET.get("keyword")
+        courses = Course.objects.filter(name__icontains=key)
+    else:
+        key = None
+        courses = Course.objects.all()
+    paginator = Paginator(courses, 2)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
     context = {
         "user":user,
         "courses": page_obj,
-        "username":username 
+        "username":username,
+        "key":key,
+        "courses_count": Course.objects.count()
+
     }
 
     return render(request, "index.html", context)
@@ -191,6 +198,31 @@ def reset_password(request):
             
     return redirect('login')
 
+
+def mycourse(request):
+    if not request.session.get("user"):
+        return redirect("login")
+    
+    user = User.objects.filter(email= request.session['user']).first()
+    context = {
+        "mycourses":user.courses.all()
+    }
+    return render(request, "mycourse.html", context)
+
+
+from .forms import UserForm
+
+def add_user(request):
+    if request.method=="POST":
+        form = UserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('add_user')
+
+    else:
+        form = UserForm()
+
+    return render(request, "add_user.html", {"form":form})
 
 
 class UserViewSet(viewsets.ModelViewSet):

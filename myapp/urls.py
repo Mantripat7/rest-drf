@@ -23,6 +23,8 @@ urlpatterns = [
     path('login/', views.login, name="login"),
     path('profile/', views.profile, name="profile"),
     path('logout/', views.logout, name="logout"),
+    path('mycourse/', views.mycourse, name="mycourse"),
+    path('add_user/', views.add_user, name="add_user"),
     path('delete/<int:id>', views.delete_profile, name="delete_profile"),
     path('reset_password/', views.reset_password, name="reset_password"),
 ]
